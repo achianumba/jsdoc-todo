@@ -1,0 +1,11 @@
+coverage
+docs
+/lib
+node_modules
+tests/README.md
+types
+var/*
+!var/.gitkeep
+jsdoc-todo*.tgz
+**/**/*.map
+todoplugin.js

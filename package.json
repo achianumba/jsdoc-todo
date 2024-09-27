@@ -1,0 +1,58 @@
+{
+  "name": "jsdoc-todo",
+  "version": "0.1.0",
+  "description": "A JSDoc plugin that adds TO-DO lists/items to a project's README.md.",
+  "main": "./jsdoc-todo.js",
+  "module": "./jsdoc-todo.js",
+  "types": "./jsdoc-todo.d.ts",
+  "exports": {
+    ".": {
+      "types": "./jsdoc-todo.d.ts",
+      "require": "./jsdoc-todo.js",
+      "module": "./jsdoc-todo.js"
+    },
+    "./config": "./lib/config.js",
+    "./create-checkbox": "./lib/create-checkbox.js",
+    "./save": "./lib/save.js"
+  },
+  "files": [
+    "/lib",
+    "/jsdoc-todo.d.ts",
+    "/jsdoc-todo.js"
+  ],
+  "scripts": {
+    "test": "cd tests && pnpm install --prefer-offline && pnpm run test",
+    "lint": "eslint  src tests",
+    "build:emit": "tsc",
+    "build:todo": "jsdoc -c jsdoc.config.js .",
+    "build": "pnpm run build:emit && pnpm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/achianumba/jsdoc-todo"
+  },
+  "keywords": [
+    "jsdoc-todo",
+    "jsdoc",
+    "todo",
+    "todolist",
+    "@todo",
+    "@todolist",
+    "to-do",
+    "readme"
+  ],
+  "author": "Arinze Chianumba <achianumba@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.5.1",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0",
+    "typescript": "5.5.4",
+    "typescript-eslint": "^8.7.0"
+  },
+  "dependencies": {
+    "jsdoc": "^4.0.3"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "recurseDepth": 10,
+  "plugins": [
+    "node_modules/jsdoc-todo/todoplugin.js"
+  ],
+  "source": {
+    "include": [
+      "fixtures"
+    ],
+    " exlude": [
+      "coverage",
+      "docs",
+      "node_mdoules",
+      "var"
+    ],
+    "excludePattern": "\\.(config|test)\\.js$"
+  },
+  "opts": {
+    "destination": "./docs"
+  },
+  "todoPlugin": {
+    "outFile": "var/jsdoc.config.json.md",
+    "heading": "JSDoc Config JSON To Do",
+    "headingLevel": 3,
+    "tag": "jsdoc.config.json"
+  }
+}
