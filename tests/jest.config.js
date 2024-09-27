@@ -18,8 +18,10 @@ const config = {
   coveragePathIgnorePatterns: ["/node_modules/", '!**/node_modules/jsdoc-todo/lib/**/*.js'],
   verbose: true,
   globals: {
-    varDir: resolve(process.cwd(), "var")
-  }
+    varDir: resolve(process.cwd(), "var"),
+    readme: resolve(process.cwd(), "README.md")
+  },
+  globalSetup: "./jest.global.setup.config.js"
 };
 
 module.exports = config;
