@@ -4,8 +4,8 @@ docs
 node_modules
 tests/README.md
 types
-var/*
-!var/.gitkeep
+var
+jsdoc-todo.d.ts
+jsdoc-todo.js
 jsdoc-todo*.tgz
-**/**/*.map
-todoplugin.js
+*.map
