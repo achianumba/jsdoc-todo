@@ -25,7 +25,8 @@
     "lint": "eslint  src tests",
     "build:emit": "tsc",
     "build:todo": "jsdoc -c jsdoc.config.js .",
-    "build": "pnpm run build:emit && pnpm run test"
+    "build": "pnpm run build:emit && pnpm run test",
+    "jest": "cd tests && pnpm run jest"
   },
   "repository": {
     "type": "git",

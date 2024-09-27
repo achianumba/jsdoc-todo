@@ -76,5 +76,5 @@ export const handlers = { processingComplete };
 /**
  * @todo just an example +x
  */
-export const todoPlugin = join("node_modules", "jsdoc-todo", "todoplugin.js");
+export const todoPlugin = join("node_modules", "jsdoc-todo", "jsdoc-todo.js");
 export default todoPlugin;

@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "main": "todoplugin.test.js",
   "scripts": {
-    "cmd:no:config": "node fixtures/cmd.helper.js -c fixtures/jsdoc.no.config.js",
-    "cmd:js:config": "node fixtures/cmd.helper.js -c fixtures/jsdoc.config.js",
-    "cmd:json:config": "node fixtures/cmd.helper.js -c fixtures/jsdoc.config.json",
+    "jsdoc:empty:config": "tests/fixtures/jsdoc.empty.config.js",
     "jsdoc:no:config": "jsdoc -c fixtures/jsdoc.no.config.js .",
     "jsdoc:js:config": "jsdoc -c fixtures/jsdoc.config.js .",
     "jsdoc:json:config": "jsdoc -c fixtures/jsdoc.config.json .",
-    "test": "jest"
+    "test": "jest '(config|create-checkbox|save).test.js' && jest --runInBand jsdoc-todo.js",
+    "jest": "jest"
   },
   "author": "",
   "license": "ISC",

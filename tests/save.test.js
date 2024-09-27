@@ -1,11 +1,8 @@
 /* eslint-disable */
-const { getToDoText, writeToDoToFile, save } = require("jsdoc-todo/save");
-const config = require("jsdoc-todo/config").getConfig();
-const { checkedBox, uncheckedBox } = require("./fixtures/checkbox.helper");
+const { writeToDoToFile, save } = require("jsdoc-todo/save");
+const { config, todoText, todoList } = require("./fixtures/utils.helper");
 const { resolve } = require("path");
 const { readFileSync } = require("fs");
-const todoList = [checkedBox(), uncheckedBox()];
-const todoText = getToDoText(config, todoList);
 
 describe("getTodoText():", () => {
   test("starts with config.tag", () => {

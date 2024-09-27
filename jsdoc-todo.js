@@ -51,5 +51,5 @@ function processingComplete(e) {
     });
 }
 exports.handlers = { processingComplete };
-exports.todoPlugin = (0, path_1.join)("node_modules", "jsdoc-todo", "todoplugin.js");
+exports.todoPlugin = (0, path_1.join)("node_modules", "jsdoc-todo", "jsdoc-todo.js");
 exports.default = exports.todoPlugin;

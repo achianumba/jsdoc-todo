@@ -1,7 +1,7 @@
 {
   "recurseDepth": 10,
   "plugins": [
-    "node_modules/jsdoc-todo/todoplugin.js"
+    "node_modules/jsdoc-todo/jsdoc-todo.js"
   ],
   "source": {
     "include": [
