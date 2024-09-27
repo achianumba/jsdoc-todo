@@ -2,7 +2,7 @@
 const { writeToDoToFile, save } = require("jsdoc-todo/save");
 const { resolve } = require("path");
 const { readFile } = require("fs/promises");
-const { config, todoText, todoList, precedingSections } = require("./fixtures/utils.helper");
+const { config, todoText, todoList, precedingSections, subsequentSections } = require("./fixtures/utils.helper");
 
 describe("getTodoText():", () => {
   test("starts with config.tag", () => {
@@ -50,13 +50,24 @@ describe("save():", () => {
     expect(outFileContents).toBe(todoText.trim());
   });
 
-  test("appends todoText to an existing file that does not have a 'to do' list", async () => {
-    const outFile = resolve(varDir, "precedingSection.md");
+  test("appends todoText to an existing file that does not have a 'to do' list & preserves preceding sections", async () => {
+    const outFile = resolve(varDir, "precedingSections.md");
     writeToDoToFile(outFile, precedingSections)
     save(todoList, { ...config, outFile });
 
     const outFileContents = (await readFile(outFile, { encoding: "utf-8" })).trim();
     expect(outFileContents.startsWith(config.tag.trim())).toBeFalsy();
     expect(outFileContents.endsWith(config.endTag.trim())).toBeTruthy();
+  });
+
+  test("preserves preceding and subsequent sections of an outFile that contains a to do list", async () => {
+    const outFile = resolve(varDir, "precedingAndSubsequentSections.md");
+    writeToDoToFile(outFile, `${precedingSections}\n\n${todoText}\n\n${subsequentSections}`);
+    save(todoList, { ...config, outFile });
+
+    const outFileContents = (await readFile(outFile, { encoding: "utf-8" })).trim();
+    expect(outFileContents.startsWith(config.tag.trim())).toBeFalsy();
+    expect(outFileContents.includes(todoText.trim())).toBeTruthy();
+    expect(outFileContents.endsWith(config.endTag.trim())).toBeFalsy();
   });
 });
