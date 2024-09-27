@@ -1,8 +1,8 @@
 /* eslint-disable */
 const { writeToDoToFile, save } = require("jsdoc-todo/save");
-const { config, todoText, todoList } = require("./fixtures/utils.helper");
 const { resolve } = require("path");
-const { readFileSync } = require("fs");
+const { readFile } = require("fs/promises");
+const { config, todoText, todoList, precedingSections } = require("./fixtures/utils.helper");
 
 describe("getTodoText():", () => {
   test("starts with config.tag", () => {
@@ -27,8 +27,36 @@ PLEASE ADD THEM DIRECTLY BELOW THE "@endtodolist" HTML COMMENT BELOW.`)).toBeTru
   });
 });
 
-test("writeTodoToFile() writes to the specified file", () => {
+test("writeTodoToFile() writes to the specified file", async () => {
   const filename = resolve(varDir, "writeToFile.md");
   writeToDoToFile(filename, todoText);
-  expect(readFileSync(filename, {encoding: "utf-8"}).trim()).toBe(todoText.trim());
+  expect((await readFile(filename, { encoding: "utf-8" })).trim()).toBe(todoText.trim());
+});
+
+describe("save():", () => {
+  test("returns false if todoList is empty", () => {
+    expect(save([])).toBeFalsy();
+  });
+
+  test("creates a config.outFile if it doesn't exist and writes to it", async () => {
+    const outFile = resolve(varDir, "nonExistingFile.md");
+
+    save(todoList, {
+      ...config,
+      outFile
+    });
+
+    const outFileContents = (await readFile(outFile, { encoding: "utf-8" })).trim();
+    expect(outFileContents).toBe(todoText.trim());
+  });
+
+  test("appends todoText to an existing file that does not have a 'to do' list", async () => {
+    const outFile = resolve(varDir, "precedingSection.md");
+    writeToDoToFile(outFile, precedingSections)
+    save(todoList, { ...config, outFile });
+
+    const outFileContents = (await readFile(outFile, { encoding: "utf-8" })).trim();
+    expect(outFileContents.startsWith(config.tag.trim())).toBeFalsy();
+    expect(outFileContents.endsWith(config.endTag.trim())).toBeTruthy();
+  });
 });

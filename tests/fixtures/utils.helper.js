@@ -46,6 +46,27 @@ const uncheckedBox = () => createCheckbox(
 
 const todoList = [checkedBox(), uncheckedBox()];
 const todoText = getToDoText(config, todoList);
+const precedingSections = `
+# Preceding section 1
+
+Paragraph
+
+## Preceding section 2
+
+Paragraph
+
+`;
+
+const subsequentSections = `
+## Subsequent section 1
+
+Paragraph
+
+## Subsequent section 2
+
+Paragraph
+
+`;
 
 module.exports = {
   config,
@@ -56,5 +77,7 @@ module.exports = {
   checkedBox,
   uncheckedBox,
   todoList,
-  todoText
+  todoText,
+  precedingSections,
+  subsequentSections
 }

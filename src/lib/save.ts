@@ -32,7 +32,7 @@ ${config.endTag}
 export function writeToDoToFile(file: string, todoText: string) {
   writeFileSync(
     file,
-    `${todoText.replaceAll(/\r?\n{3,}/g, "\n\n").trimEnd()}\n`,
+    `${todoText.replaceAll(/\r?\n{3,}/g, "\n\n").trim()}\n`,
     { encoding: "utf-8" }
   );
 }
@@ -43,7 +43,7 @@ export function save(
 ) {
   if (todoList.length === 0) {
     console.log("No 'to do' items/lists found!");
-    return;
+    return false;
   }
 
   const outDir = parsePath(config.outFile).dir;
@@ -56,18 +56,19 @@ export function save(
     }
 
     writeToDoToFile(config.outFile, todoText);
-    return;
+    return true;
   }
 
   const todoFileContents = readFileSync(config.outFile, {
     encoding: "utf-8",
   }).trim();
+
   const startIndex = todoFileContents.indexOf(config.tag);
 
   // @todolist or the user-supplied tag is not found
   if (startIndex === -1) {
     writeToDoToFile(config.outFile, `${todoFileContents}\n\n${todoText}`);
-    return;
+    return true;
   }
 
   const precedingSections = todoFileContents.slice(0, startIndex).trim();
@@ -79,13 +80,15 @@ export function save(
 
   if (subsequentSections.length === 0) {
     writeToDoToFile(config.outFile, `${precedingSections}\n\n${todoText}`);
-    return;
+    return true;
   }
 
   writeToDoToFile(
     config.outFile,
     `${precedingSections}\n\n${todoText}${subsequentSections}`
   );
+
+  return true;
 }
 
 export default save;
