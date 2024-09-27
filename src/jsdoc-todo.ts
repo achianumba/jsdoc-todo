@@ -1,4 +1,9 @@
-import { JSDocEvent, type Dictionary, type Doclet, type Tag } from "./lib/types";
+import {
+  JSDocEvent,
+  type Dictionary,
+  type Doclet,
+  type Tag,
+} from "./lib/types";
 import createCheckbox from "./lib/create-checkbox";
 import save from "./lib/save";
 import { join } from "path";
@@ -67,7 +72,8 @@ function processingComplete(e: JSDocEvent) {
   e.doclets = e.doclets.filter((d: Doclet): boolean => {
     // eslint-disable-next-line
     const toDoDocletRegex = /\/\*\*(\n|\s)?\ *\*\ @todo(list)?/;
-    return d.comment.length > 0 && !toDoDocletRegex.test(d.comment);
+
+    return !toDoDocletRegex.test(d.comment);
   });
 }
 

@@ -5,7 +5,7 @@ node_modules
 tests/README.md
 types
 var
-jsdoc-todo.d.ts
-jsdoc-todo.js
+/jsdoc-todo.d.ts
+/jsdoc-todo.js
 jsdoc-todo*.tgz
 *.map
