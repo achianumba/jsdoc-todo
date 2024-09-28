@@ -68,6 +68,8 @@ Paragraph
 
 `;
 
+const checkboxRegex = /\n-\s\[(x|\s)\].*/ig
+
 module.exports = {
   config,
   userConfigJS,
@@ -79,5 +81,6 @@ module.exports = {
   todoList,
   todoText,
   precedingSections,
-  subsequentSections
+  subsequentSections,
+  checkboxRegex
 }

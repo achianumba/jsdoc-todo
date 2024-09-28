@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "test": "cd tests && pnpm install --prefer-offline && pnpm run test",
-    "lint": "eslint  src tests",
+    "lint": "eslint src",
     "build:emit": "tsc",
     "build:todo": "jsdoc -c jsdoc.config.js .",
     "build": "pnpm run build:emit && pnpm run test",
