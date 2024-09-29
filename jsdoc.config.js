@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   recurseDepth: 10,
   plugins: ["jsdoc-todo.js"],
@@ -9,5 +10,8 @@ module.exports = {
   },
   opts: {
     destination: "./docs",
+  },
+  todoPlugin: {
+    tag: "actualToDolist"
   }
 };
