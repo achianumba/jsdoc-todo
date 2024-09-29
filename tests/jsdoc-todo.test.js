@@ -89,3 +89,9 @@ describe("Running jsdoc WITH a populated todoPlugin object in a JSON config file
     );
   });
 });
+
+/**
+ * @todolist
+ * Generate "to do" list from TS files
+ * Delete todolist section from README.md if no "to do" comments are found in source code.
+ */
