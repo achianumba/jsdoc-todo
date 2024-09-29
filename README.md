@@ -108,8 +108,6 @@ OR
 ### Input
 
 ```javascript
-// example.js
-
 /**
  * @todolist
  * The below will match anything that's an instance of Object (i.e., Arrays, Maps etc.). Use `Object.prototype.toString.call(arg)` instead.
@@ -122,7 +120,7 @@ function isObject(arg) {
   }
 }
 
-/** @todo - Capitalize this and other constant identifiers +x */
+/** @todo Capitalize this and other constant identifiers +x */
 const { NODE_ENV, JWT_PRIVATE_KEY } = process.env;
 
 /**
@@ -147,10 +145,11 @@ PLEASE ADD THEM DIRECTLY BELOW THE "@endtodolist" HTML COMMENT BELOW. -->
 
 ## To Do
 
+- [ ] A multi-line @todo item is processed as a single line. Use @todolist tags if you want each line to contain a to do item.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L116)
 - [ ] The below will match anything that's an instance of Object (i.e., Arrays, Maps etc.). Use `Object.prototype.toString.call(arg)` instead.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L101)
 - [ ] Don't forget to test it before your next PR.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L102)
 - [ ] Consider using Zod's `z.object(arg)` etc. for this and other validators/validations.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L103)
-- [x] - Capitalize this and other constant identifiers&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L111)
+- [x] Capitalize this and other constant identifiers&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L111)
 
 <!-- @endtodolist -->
 ```
