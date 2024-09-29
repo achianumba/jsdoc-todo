@@ -16,6 +16,8 @@ Turn "to do" comments in your JavaScript code into a handy checklist in your pro
   - [Installation](#installation)
   - [Usage](#usage)
     - [Example](#example)
+      - [Input](#input)
+      - [Output](#output)
     - [Marking a task/to-do as completed.](#marking-a-taskto-do-as-completed)
     - [`todoPlugin` Configuration](#todoplugin-configuration)
   - [Development](#development)
@@ -41,14 +43,14 @@ npm install -D jsdoc-todo
 
 1. Add the below to your [JSDoc configuration](https://jsdoc.app/about-configuring-jsdoc) file.
    
-    <table border="1">
+    <table border="1" style="table-layout: fixed;">
     <thead>
     <th>JavaScript configuration</th>
     <th>JSON configuration</th>
     </thead>
     <tbody>
     <tr>
-    <td style="width: 396px;">
+    <td style="width: 380px">
 
       ```javascript
       const { todoPlugin } = require("jsdoc-todo");
@@ -60,7 +62,7 @@ npm install -D jsdoc-todo
 
     </td>
 
-    <td style="width: 396px;">
+    <td style="width: 380px">
 
       ```json
       {
@@ -77,7 +79,7 @@ npm install -D jsdoc-todo
 2. Run `jsdoc` with the configuration file created in the previous step.
    
    ```shell
-   jsdoc -c path/to/jsdoc-config-file
+   jsdoc -c path/to/jsdoc-config-file .
    ```
 
 > [!NOTE]
@@ -85,14 +87,14 @@ npm install -D jsdoc-todo
 
 <br>
 
-<table border="1">
+<table border="1" style="table-layout: fixed;">
 <thead>
 <th>JSDoc JavaScript configuration</th>
 <th>JSDoc JSON configuration</th>
 </thead>
 <tbody>
 <tr>
-<td style="width: 396px;">
+<td style="width: 380px">
 
   ```javascript
   const { todoPlugin } = require("jsdoc-todo");
@@ -107,7 +109,7 @@ npm install -D jsdoc-todo
 
 </td>
 
-<td style="width: 396px;">
+<td style="width: 380px">
 
   ```json
   {
@@ -132,14 +134,7 @@ npm install -D jsdoc-todo
 
 ### Example
 
-<table border="1">
-<thead>
-<th>JSDoc comment</th>
-<th>Output</th>
-</thead>
-<tbody>
-<tr>
-<td style="width: 396px;">
+#### Input
 
   ```javascript
   // example.js
@@ -168,9 +163,7 @@ npm install -D jsdoc-todo
    */
   ```
 
-</td>
-
-<td style="width: 396px;">
+#### Output
 
   ```markdown
   <!-- @todolist
@@ -190,11 +183,6 @@ npm install -D jsdoc-todo
 
   <!-- @endtodolist -->
   ```
-
-</td>
-</tr>
-</tbody>
-</table>
 
 ### Marking a task/to-do as completed.
 
