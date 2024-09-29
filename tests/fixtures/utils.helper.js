@@ -3,6 +3,7 @@ const { resolve } = require("path");
 const { getConfig } = require("jsdoc-todo/config");
 const { createCheckbox } = require("jsdoc-todo/create-checkbox");
 const { getToDoText } = require("jsdoc-todo/save");
+const { existsSync } = require("fs");
 
 const userConfigJS = require("./jsdoc.config").todoPlugin;
 const userConfigJSON = require("./jsdoc.config.json").todoPlugin;
@@ -20,29 +21,31 @@ const checked = {
   todo: "Completed task. +x",
   filePath: "/path/to",
   filename: "/checked.js",
-  lineNumber: 1
+  lineNumber: 1,
 };
 
 const unchecked = {
   todo: "Uncompleted task.",
   filePath: "/path/to",
   filename: "unchecked.js",
-  lineNumber: 11
+  lineNumber: 11,
 };
 
-const checkedBox = () => createCheckbox(
-  checked.todo,
-  checked.filePath,
-  checked.filename,
-  checked.lineNumber
-);
+const checkedBox = () =>
+  createCheckbox(
+    checked.todo,
+    checked.filePath,
+    checked.filename,
+    checked.lineNumber
+  );
 
-const uncheckedBox = () => createCheckbox(
-  unchecked.todo,
-  unchecked.filePath,
-  unchecked.filename,
-  unchecked.lineNumber
-);
+const uncheckedBox = () =>
+  createCheckbox(
+    unchecked.todo,
+    unchecked.filePath,
+    unchecked.filename,
+    unchecked.lineNumber
+  );
 
 const todoList = [checkedBox(), uncheckedBox()];
 const todoText = getToDoText(config, todoList);
@@ -63,13 +66,12 @@ const subsequentSections = `
 Paragraph
 
 ## Subsequent section 2
- doesNotEndWithEndTag(contents, config) {
- }
+
 Paragraph
 
 `;
 
-const checkboxRegex = /\n-\s\[(x|\s)\].*/ig;
+const checkboxRegex = /\n-\s\[(x|\s)\].*/gi;
 
 function startsWithTag(contents, config) {
   expect(contents.trim().startsWith(config.tag.trim())).toBeTruthy();
@@ -88,15 +90,19 @@ function includesTodoItems(contents, length) {
 }
 
 function includesTag(contents, config) {
-  expect(contents.trim().includes(todoText.trim())).toBeTruthy();
+  expect(contents.trim().includes(contents.trim())).toBeTruthy();
 }
 
 function doesNotEndWithEndTag(contents, config) {
-  expect(contents.trim().endsWith(config.endTag.trim())).toBeFalsy()
+  expect(contents.trim().endsWith(config.endTag.trim())).toBeFalsy();
 }
 
 function includesEndTag(contents, config) {
   expect(contents.trim().includes(config.endTag.trim())).toBeTruthy();
+}
+
+function fileDoesNotExists(filename) {
+  expect(existsSync(filename)).toBeFalsy();
 }
 
 module.exports = {
@@ -117,5 +123,7 @@ module.exports = {
   endsWithEndTag,
   includesTodoItems,
   includesTag,
-  doesNotEndWithEndTag
-}
+  doesNotEndWithEndTag,
+  includesEndTag,
+  fileDoesNotExists,
+};

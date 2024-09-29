@@ -64,7 +64,7 @@ export function save(
     }).trim();
 
     const startIndex = todoFileContents.indexOf(config.tag);
-
+    
     // @todolist or the user-supplied tag is not found
     if (startIndex === -1) {
       writeToDoToFile(config.outFile, `${todoFileContents}\n\n${todoText}`);

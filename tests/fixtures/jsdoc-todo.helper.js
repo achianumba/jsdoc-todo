@@ -1,9 +1,21 @@
 /* eslint-disable */
-const { existsSync } = require("fs");
-const { readFile, writeFile } = require("fs/promises");
-const { checkboxRegex, precedingSections } = require("./utils.helper");
 const util = require("node:util");
 const exec = util.promisify(require("node:child_process").exec);
+const { existsSync } = require("fs");
+const { writeFile, readFile, rm } = require("fs/promises");
+const {
+  startsWithTag,
+  endsWithEndTag,
+  includesTodoItems,
+  doesNotStartWithTag,
+  includesTag,
+  precedingSections,
+  checkedBox,
+  uncheckedBox,
+  subsequentSections,
+  doesNotEndWithEndTag,
+  includesEndTag,
+} = require("./utils.helper");
 
 function fileDoesNotExist(filename) {
   expect(existsSync(filename)).toBeFalsy();
@@ -13,30 +25,72 @@ function fileExists(filename) {
   expect(existsSync(filename)).toBeTruthy();
 }
 
-function writesToNewFile(fileContents, config) {
-  const contents = fileContents.trim();
-  expect(contents.startsWith(config.tag.trim())).toBeTruthy();
-  expect(contents.endsWith(config.endTag.trim())).toBeTruthy();
-  expect(contents.match(checkboxRegex)).toHaveLength(7);
+async function createsNewFile(file, command) {
+  fileDoesNotExist(file);
+  await exec(`pnpm run ${command}`);
+  fileExists(file);
 }
 
-async function preservesPrecedingSections(filename, config, command) {
-  await writeFile(config.outFile, precedingSections, { encoding: "utf-8" });
+async function writesToNewFile(fileContents, config) {
+  const contents = fileContents.trim();
+  startsWithTag(contents, config);
+  endsWithEndTag(contents, config);
+  includesTodoItems(contents, 7);
+}
 
-  // await exec(`pnpm run ${command}`);
+async function preservesPrecedingSections(config, command) {
+  await writeFile(config.outFile, precedingSections, {
+    encoding: "utf-8",
+  });
+  await exec(`pnpm run ${command}`);
+  const outFileContents = await readFile(config.outFile, {
+    encoding: "utf8",
+  });
+  doesNotStartWithTag(outFileContents, config);
+  includesTag(outFileContents, config);
+  includesTodoItems(outFileContents, 7);
+  endsWithEndTag(outFileContents, config);
+}
 
-  // const contents = (await readFile(filename, { encoding: "utf8" })).trim();
-  // const tag = config.tag.trim();
+function getInitialContent(config) {
+  const initialContent = `${precedingSections}
 
-  // expect(contents.startsWith(tag)).toBeFalsy();
-  // expect(contents.includes(tag)).toBeTruthy();
-  // expect(contents.endsWith(config.endTag.trim())).toBeTruthy();
-  // expect(contents.match(checkboxRegex)).toHaveLength(7);
+${config.tag}
+
+${checkedBox()}
+${uncheckedBox()}
+
+${config.endTag}
+
+${subsequentSections}`;
+
+  return initialContent;
+}
+
+async function preservesPrecedingAndSubsequentSections(config, command) {
+  await rm(config.outFile);
+
+  await writeFile(config.outFile, getInitialContent(config), {
+    encoding: "utf-8",
+  });
+
+  await exec(`pnpm run ${command}`);
+
+  const outFileContents = await readFile(config.outFile, {
+    encoding: "utf8",
+  });
+
+  doesNotStartWithTag(outFileContents, config);
+  doesNotEndWithEndTag(outFileContents, config);
+  includesTag(outFileContents, config);
+  includesEndTag(outFileContents, config);
+  includesTodoItems(outFileContents, 7);
 }
 
 module.exports = {
   fileDoesNotExist,
-  fileExists,
   writesToNewFile,
-  preservesPrecedingSections
+  preservesPrecedingSections,
+  createsNewFile,
+  preservesPrecedingAndSubsequentSections,
 };
