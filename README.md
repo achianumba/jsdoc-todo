@@ -48,7 +48,7 @@ npm install -D jsdoc-todo
     </thead>
     <tbody>
     <tr>
-    <td style="width: 50%;">
+    <td style="width: 396px;">
 
       ```javascript
       const { todoPlugin } = require("jsdoc-todo");
@@ -60,7 +60,7 @@ npm install -D jsdoc-todo
 
     </td>
 
-    <td style="width: 50%;">
+    <td style="width: 396px;">
 
       ```json
       {
@@ -92,7 +92,7 @@ npm install -D jsdoc-todo
 </thead>
 <tbody>
 <tr>
-<td style="width: 50%;">
+<td style="width: 396px;">
 
   ```javascript
   const { todoPlugin } = require("jsdoc-todo");
@@ -107,10 +107,9 @@ npm install -D jsdoc-todo
 
 </td>
 
-<td style="width: 50%;">
+<td style="width: 396px;">
 
   ```json
-  // jsdoc.config.json
   {
     "plugins": [
       "node_modules/jsdoc-todo/jsdoc-todo.js"
@@ -140,7 +139,7 @@ npm install -D jsdoc-todo
 </thead>
 <tbody>
 <tr>
-<td style="width: 50%;">
+<td style="width: 396px;">
 
   ```javascript
   // example.js
@@ -171,7 +170,7 @@ npm install -D jsdoc-todo
 
 </td>
 
-<td style="width: 50%;">
+<td style="width: 396px;">
 
   ```markdown
   <!-- @todolist
