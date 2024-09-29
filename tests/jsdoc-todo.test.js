@@ -89,3 +89,9 @@ describe("Running jsdoc WITH a populated todoPlugin object in a JSON config file
     );
   });
 });
+
+/**
+ * @todolist
+ * Generate To Do list from JS files
+ * Delete todolist section from README.md no new To do items are found.
+ */

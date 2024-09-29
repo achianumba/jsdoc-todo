@@ -1,7 +1,7 @@
 {
   "name": "jsdoc-todo",
   "version": "0.1.0",
-  "description": "A JSDoc plugin that adds TO-DO lists/items to a project's README.md.",
+  "description": "Turn \"to do\" comments in your JavaScript code into a handy checklist in your project's README.md (or a different) file..",
   "main": "./jsdoc-todo.js",
   "module": "./jsdoc-todo.js",
   "types": "./jsdoc-todo.d.ts",
@@ -26,8 +26,7 @@
     "build:emit": "tsc",
     "build:todo": "jsdoc -c jsdoc.config.js .",
     "build": "pnpm run build:emit && pnpm run test",
-    "jest": "cd tests && pnpm run jest",
-    "jsdoc": "jsdoc -c jsdoc.config.js"
+    "jest": "cd tests && pnpm run jest"
   },
   "repository": {
     "type": "git",

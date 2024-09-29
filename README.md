@@ -15,7 +15,6 @@ Turn "to do" comments in your JavaScript code into a handy checklist in your pro
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [Configuration](#configuration)
     - [Example](#example)
     - [Marking a task/to-do as completed.](#marking-a-taskto-do-as-completed)
     - [`todoPlugin` Configuration](#todoplugin-configuration)
@@ -39,45 +38,51 @@ npm install -D jsdoc-todo
 
 ## Usage
 
-### Configuration
+1. Add the below to your [JSDoc configuration](https://jsdoc.app/about-configuring-jsdoc) file.
+   
+    <table border="1">
+    <thead>
+    <th>JavaScript configuration</th>
+    <th>JSON configuration</th>
+    </thead>
+    <tbody>
+    <tr>
+    <td style="width: 50%;">
 
-`jsdoc-todo` writes the generated "to do" list to a project's README.md file by default. Using the below configuration.
+      ```javascript
+      const { todoPlugin } = require("jsdoc-todo");
+      
+      module.exports = {
+        plugins: [todoPlugin]
+      };
+      ```
 
-<table border="1">
-<thead>
-<th>JavaScript configuration</th>
-<th>JSON configuration</th>
-</thead>
-<tbody>
-<tr>
-<td style="width: 50%;">
+    </td>
 
-  ```javascript
-  const { todoPlugin } = require("jsdoc-todo");
-  
-  module.exports = {
-    plugins: [todoPlugin]
-  };
-  ```
+    <td style="width: 50%;">
 
-</td>
+      ```json
+      {
+        "plugins": [
+        "node_modules/jsdoc-todo/jsdoc-todo.js"
+        ]
+      }
+      ```
 
-<td style="width: 50%;">
+    </td>
+    </tr>
+    </tbody>
+    </table>
+2. Run `jsdoc` with the configuration file created in the previous step.
+   
+   ```shell
+   jsdoc -c path/to/jsdoc-config-file
+   ```
 
-  ```json
-  {
-    "plugins": [
-    "node_modules/jsdoc-todo/jsdoc-todo.js"
-    ]
-  }
-  ```
+> [!NOTE]
+`jsdoc-todo` writes the generated "to do" list to a project's README.md file by default. If you wish to have `jsdoc-todo` write the generated "to do" list to a different file, add an `todoPlugin.outFile` property to the project's JSDoc configuration file as shown below.
 
-</td>
-</tr>
-</tbody>
-</table>
-
-If you wish to have `jsdoc-todo` write the generated "to do" list to a different file, add a [todoPlugin](#todoplugin-configuration) object to the project's JSDoc configuration file as shown below.
+<br>
 
 <table border="1">
 <thead>
@@ -94,10 +99,7 @@ If you wish to have `jsdoc-todo` write the generated "to do" list to a different
   module.exports = {
     plugins: [todoPlugin],
     todoPlugin: {
-      heading: "Some other heading",
-      headingLevel: 2,
-      outFile: "some-other-file.md",
-      tag: "some-other-tag"
+      outFile: "some/other/file.md"
     }
   };
   ```
@@ -109,14 +111,11 @@ If you wish to have `jsdoc-todo` write the generated "to do" list to a different
   ```json
   // jsdoc.config.json
   {
-    "todoPlugin": {
-      "plugins": [
+    "plugins": [
       "node_modules/jsdoc-todo/jsdoc-todo.js"
-      ],
-      "heading": "Some other heading",
-      "headingLevel": 2,
-      "outFile": "some-other-file.md",
-      "tag": "some-other-tag"
+    ],
+    "todoPlugin": {
+      "outFile": "some/other/file.md"
     }
   }
   ```
@@ -125,6 +124,11 @@ If you wish to have `jsdoc-todo` write the generated "to do" list to a different
 </tr>
 </tbody>
 </table>
+
+<br>
+
+> [!TIP]
+> See [todoPlugin](#todoplugin-configuration) for all available `todoPlugin` properties.
 
 ### Example
 
