@@ -12,7 +12,8 @@ module.exports = {
       "node_mdoules",
       "var"
     ],
-    excludePattern: "\\.(config|test|helper)\\.js$",
+    includePattern: "empty\\.js$",
+    excludePattern: "\\.(config|test|helper|todo)\\.js$",
   },
   opts: {
     destination: './docs'

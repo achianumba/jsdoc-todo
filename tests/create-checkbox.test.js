@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { checked, unchecked, checkedBox, uncheckedBox } = require("./fixtures/checkbox.helper");
+const { checked, unchecked, checkedBox, uncheckedBox } = require("./fixtures/utils.helper");
 
 describe("createCheckbox():", () => {
   test("Returns a checked-box for todo items that end with +x", () => {

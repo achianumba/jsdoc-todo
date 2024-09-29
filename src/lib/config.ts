@@ -33,7 +33,7 @@ export function getConfig(): ToDoPluginConfig {
 
   if ("tag" in userConfig) {
     userConfig.endTag = `<!-- @end${userConfig.tag} -->`;
-    userConfig.tag = `<!-- ${userConfig.tag}`;
+    userConfig.tag = `<!-- @${userConfig.tag}`;
   }
 
   if (userConfig.outFile) {
