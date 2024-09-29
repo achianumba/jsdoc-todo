@@ -1,8 +1,35 @@
 <!-- markdownlint-disable no-trailing-punctuation -->
 
+<div align="center">
+
 # JSDoc To Do
 
-A JSDoc plugin that adds TO-DO lists/items to a project's README.md.
+Turn "to do" comments in your JavaScript code into a handy checklist in your project's README.md (or a different) file.
+
+</div>
+
+<details>
+  <summary><strong style="font-size: 1.5rem">Table of Contents</strong></summary>
+
+- [JSDoc To Do](#jsdoc-to-do)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Configuration](#configuration)
+    - [Example](#example)
+    - [Marking a task/to-do as completed.](#marking-a-taskto-do-as-completed)
+    - [`todoPlugin` Configuration](#todoplugin-configuration)
+  - [Development](#development)
+    - [Testing](#testing)
+  - [Known issues](#known-issues)
+</details>
+
+## Features
+
+- Extracts "to do" items into an easily accessible checklist.
+- Links each "to do" item to it's source file and line number.
+- Marks "to do" items as completed directly in JS files.
+- Updates "to do" list when `@todo` or `@todolist` comments are added or removed.
 
 ## Installation
 
@@ -12,70 +39,164 @@ npm install -D jsdoc-todo
 
 ## Usage
 
-```javascript
-// jsdoc.config.js
+### Configuration
 
-const { todoPlugin } = require("jsdoc-todo");
+`jsdoc-todo` writes the generated "to do" list to a project's README.md file by default. Using the below configuration.
 
-module.exports = {
-  //...,
-  todoPlugin: {
-    heading: "To Do",
-    headingLevel: 2,
-    outFile: "README.md",
-    tag: "todolist"
+<table border="1">
+<thead>
+<th>JavaScript configuration</th>
+<th>JSON configuration</th>
+</thead>
+<tbody>
+<tr>
+<td style="width: 50%;">
+
+  ```javascript
+  const { todoPlugin } = require("jsdoc-todo");
+  
+  module.exports = {
+    plugins: [todoPlugin]
+  };
+  ```
+
+</td>
+
+<td style="width: 50%;">
+
+  ```json
+  {
+    "plugins": [
+    "node_modules/jsdoc-todo/jsdoc-todo.js"
+    ]
   }
-};
-```
+  ```
 
-Or if you prefer JSON:
+</td>
+</tr>
+</tbody>
+</table>
 
-```json
-// jsdoc.config.json
-{
-  "todoPlugin": {
-    "heading": "To Do",
-    "headingLevel": 2,
-    "outFile": "README.md",
-    "tag": "todolist"
+If you wish to have `jsdoc-todo` write the generated "to do" list to a different file, add a [todoPlugin](#todoplugin-configuration) object to the project's JSDoc configuration file as shown below.
+
+<table border="1">
+<thead>
+<th>JSDoc JavaScript configuration</th>
+<th>JSDoc JSON configuration</th>
+</thead>
+<tbody>
+<tr>
+<td style="width: 50%;">
+
+  ```javascript
+  const { todoPlugin } = require("jsdoc-todo");
+  
+  module.exports = {
+    plugins: [todoPlugin],
+    todoPlugin: {
+      heading: "Some other heading",
+      headingLevel: 2,
+      outFile: "some-other-file.md",
+      tag: "some-other-tag"
+    }
+  };
+  ```
+
+</td>
+
+<td style="width: 50%;">
+
+  ```json
+  // jsdoc.config.json
+  {
+    "todoPlugin": {
+      "plugins": [
+      "node_modules/jsdoc-todo/jsdoc-todo.js"
+      ],
+      "heading": "Some other heading",
+      "headingLevel": 2,
+      "outFile": "some-other-file.md",
+      "tag": "some-other-tag"
+    }
   }
-}
-```
+  ```
 
-Example
+</td>
+</tr>
+</tbody>
+</table>
 
-```javascript
-// example.js
+### Example
 
-/**
- * @todolist
- * The below will match anything that's an instance of Object (i.e., Arrays, Maps etc.). Use `Object.prototype.toString.call(arg)` instead.
- * Don't forget to test it before your next PR.
- * Consider using Zod's `z.object(arg)` etc. for this and other validators/validations.
- */
-function isObject(arg) {
-  if (arg instanceof Object) {
-    return true;
+<table border="1">
+<thead>
+<th>JSDoc comment</th>
+<th>Output</th>
+</thead>
+<tbody>
+<tr>
+<td style="width: 50%;">
+
+  ```javascript
+  // example.js
+  
+  /**
+   * @todolist
+   * The below will match anything that's an instance of Object (i.e., Arrays, Maps etc.). Use `Object.prototype.toString.call(arg)` instead.
+   * Don't forget to test it before your next PR.
+   * Consider using Zod's `z.object(arg)` etc. for this and other validators/validations.
+   */
+  function isObject(arg) {
+    if (arg instanceof Object) {
+      return true;
+    }
   }
-}
+  
+  /** @todo - Capitalize this and other constant identifiers +x */
+  const { NODE_ENV, JWT_PRIVATE_KEY } = process.env;
+  
+  /**
+   * @todo
+   * A multi-line @todo item
+   * is processed
+   * as a single line.
+   * Use @todolist tags if you want each line to contain a to do item.
+   */
+  ```
 
-/** @todo - Capitalize this and other constant identifiers +x */
-const { NODE_ENV, JWT_PRIVATE_KEY } = process.env;
+</td>
 
-/**
- * @todo
- * A multi-line @todo item
- * is processed
- * as a single line.
- * Use @todolist tags if you want each line to contain a to do item.
- */
-```
+<td style="width: 50%;">
+
+  ```markdown
+  <!-- @todolist
+  DO NOT MANUALLY EDIT THIS TO DO LIST !!!
+  THIS WHOLE SECTION, INCLUDING ITS HEADING IS AUTO-GENERATED BY `jsdoc-todo` plugin.
+  ALL MANUAL CHANGES WILL BE OVERWRITTEN THE NEXT TIME jsdoc RUNS !!!!
+
+  IF YOU MUST DIRECTLY/MANUALLY INCLUDE TO DO ITEMS IN THIS DOCUMENT,
+  PLEASE ADD THEM DIRECTLY BELOW THE "@endtodolist" HTML COMMENT BELOW. -->
+
+  ## To Do
+
+  - [ ] The below will match anything that's an instance of Object (i.e., Arrays, Maps etc.). Use `Object.prototype.toString.call(arg)` instead.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L101)
+  - [ ] Don't forget to test it before your next PR.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L102)
+  - [ ] Consider using Zod's `z.object(arg)` etc. for this and other validators/validations.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L103)
+  - [x] - Capitalize this and other constant identifiers&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L111)
+
+  <!-- @endtodolist -->
+  ```
+
+</td>
+</tr>
+</tbody>
+</table>
 
 ### Marking a task/to-do as completed.
 
-Append `+x` to the end of the target line for in a `@todolist` or a single-line `@todo`. If you're working wiht a multiline `@todo`, append it to the end of the last line.
+Append `+x` to the end of a line in a `@todolist` or a single-line `@todo` to mark the task as completed.
 
-I'm going to look at the code anyway, so why this? We'll, it'll save you the trouble of going through all files. You could just click the review link and go to the exact line on large files.
+If you're working with a multiline `@todo`, append `+x` to the end of the last line instead.
 
 ### `todoPlugin` Configuration
 
@@ -85,7 +206,6 @@ I'm going to look at the code anyway, so why this? We'll, it'll save you the tro
 | `headingLevel` | HTML heading type (1 to 6).             | `number` | `2`         |
 | `outFile`      | Output file.                            | `number` | `README.md` |
 | `tag`          | Marks the start of the "To Do" section. | `string` | `todolist`  |
-| `endTag`       | Marks the end of the "To Do" section.   | `string` | `todolist`  |
 
 ## Development
 
@@ -102,9 +222,11 @@ pnpm run build
 ### Testing
 
 ```shell
+# Run pnpm run build beforehand
 pnpm run test
 ```
 
 ## Known issues
 
+- Doesn't support TypeScript.
 - Duplicate todo items result from improper filtering in your JSDoc config file. If you're using TypeScript, consider including either the source files' folder or the emitted files folder (but not both) to your JSDoc config's `source.exclude` field.
