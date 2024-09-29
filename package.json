@@ -13,7 +13,8 @@
     },
     "./config": "./lib/config.js",
     "./create-checkbox": "./lib/create-checkbox.js",
-    "./save": "./lib/save.js"
+    "./save": "./lib/save.js",
+    "./package.json": "./package.json"
   },
   "files": [
     "/lib",
@@ -30,8 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/achianumba/jsdoc-todo"
+    "url": "git+https://github.com/achianumba/jsdoc-todo.git"
   },
+  "bugs": {
+    "url": "https://github.com/achianumba/jsdoc-todo/issues"
+  },
+  "homepage": "https://github.com/achianumba/jsdoc-todo#readme",
   "keywords": [
     "jsdoc-todo",
     "jsdoc-plugin",
