@@ -1,6 +1,6 @@
 {
   "name": "jsdoc-todo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Turn \"to do\" comments in your JavaScript code into a handy checklist in your project's README.md (or a different) file..",
   "main": "./jsdoc-todo.js",
   "module": "./jsdoc-todo.js",
@@ -34,6 +34,7 @@
   },
   "keywords": [
     "jsdoc-todo",
+    "jsdoc-plugin",
     "jsdoc",
     "todo",
     "todolist",
