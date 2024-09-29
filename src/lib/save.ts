@@ -55,40 +55,41 @@ export function save(
       mkdirSync(outDir, { recursive: true });
     }
 
-    writeToDoToFile(config.outFile, todoText);
+      writeToDoToFile(config.outFile, todoText);
+      return true;
+    }
+
+    const todoFileContents = readFileSync(config.outFile, {
+      encoding: "utf-8",
+    }).trim();
+
+    const startIndex = todoFileContents.indexOf(config.tag);
+
+    // @todolist or the user-supplied tag is not found
+    if (startIndex === -1) {
+      writeToDoToFile(config.outFile, `${todoFileContents}\n\n${todoText}`);
+      return true;
+    }
+
+    const precedingSections = todoFileContents.slice(0, startIndex).trim();
+    const endTagStartIndex = todoFileContents.indexOf(config.endTag);
+    const commentClosingTag = todoFileContents.indexOf("-->", endTagStartIndex);
+    const subsequentSections = todoFileContents
+      .slice(commentClosingTag + 4)
+      .trim();
+
+    // outFile ends with endTag
+    if (subsequentSections.length === 0) {
+      writeToDoToFile(config.outFile, `${precedingSections}\n\n${todoText}`);
+      return true;
+    }
+
+    writeToDoToFile(
+      config.outFile,
+      `${precedingSections}\n\n${todoText}${subsequentSections}`
+    );
+
     return true;
   }
 
-  const todoFileContents = readFileSync(config.outFile, {
-    encoding: "utf-8",
-  }).trim();
-
-  const startIndex = todoFileContents.indexOf(config.tag);
-
-  // @todolist or the user-supplied tag is not found
-  if (startIndex === -1) {
-    writeToDoToFile(config.outFile, `${todoFileContents}\n\n${todoText}`);
-    return true;
-  }
-
-  const precedingSections = todoFileContents.slice(0, startIndex).trim();
-  const endTagStartIndex = todoFileContents.indexOf(config.endTag);
-  const commentClosingTag = todoFileContents.indexOf("-->", endTagStartIndex);
-  const subsequentSections = todoFileContents
-    .slice(commentClosingTag + 4)
-    .trim();
-
-  if (subsequentSections.length === 0) {
-    writeToDoToFile(config.outFile, `${precedingSections}\n\n${todoText}`);
-    return true;
-  }
-
-  writeToDoToFile(
-    config.outFile,
-    `${precedingSections}\n\n${todoText}${subsequentSections}`
-  );
-
-  return true;
-}
-
-export default save;
+  export default save;

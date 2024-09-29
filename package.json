@@ -26,7 +26,8 @@
     "build:emit": "tsc",
     "build:todo": "jsdoc -c jsdoc.config.js .",
     "build": "pnpm run build:emit && pnpm run test",
-    "jest": "cd tests && pnpm run jest"
+    "jest": "cd tests && pnpm run jest",
+    "jsdoc": "jsdoc -c jsdoc.config.js"
   },
   "repository": {
     "type": "git",

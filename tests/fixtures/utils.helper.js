@@ -63,12 +63,41 @@ const subsequentSections = `
 Paragraph
 
 ## Subsequent section 2
-
+ doesNotEndWithEndTag(contents, config) {
+ }
 Paragraph
 
 `;
 
-const checkboxRegex = /\n-\s\[(x|\s)\].*/ig
+const checkboxRegex = /\n-\s\[(x|\s)\].*/ig;
+
+function startsWithTag(contents, config) {
+  expect(contents.trim().startsWith(config.tag.trim())).toBeTruthy();
+}
+
+function doesNotStartWithTag(contents, config) {
+  expect(contents.trim().startsWith(config.tag.trim())).toBeFalsy();
+}
+
+function endsWithEndTag(contents, config) {
+  expect(contents.trim().endsWith(config.endTag.trim())).toBeTruthy();
+}
+
+function includesTodoItems(contents, length) {
+  expect(contents.match(checkboxRegex)).toHaveLength(length);
+}
+
+function includesTag(contents, config) {
+  expect(contents.trim().includes(todoText.trim())).toBeTruthy();
+}
+
+function doesNotEndWithEndTag(contents, config) {
+  expect(contents.trim().endsWith(config.endTag.trim())).toBeFalsy()
+}
+
+function includesEndTag(contents, config) {
+  expect(contents.trim().includes(config.endTag.trim())).toBeTruthy();
+}
 
 module.exports = {
   config,
@@ -82,5 +111,11 @@ module.exports = {
   todoText,
   precedingSections,
   subsequentSections,
-  checkboxRegex
+  checkboxRegex,
+  startsWithTag,
+  doesNotStartWithTag,
+  endsWithEndTag,
+  includesTodoItems,
+  includesTag,
+  doesNotEndWithEndTag
 }

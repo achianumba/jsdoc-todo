@@ -1,5 +1,5 @@
 import {
-  JSDocEvent,
+  type JSDocEvent,
   type Dictionary,
   type Doclet,
   type Tag,

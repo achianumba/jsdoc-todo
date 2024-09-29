@@ -1,7 +1,7 @@
 /* eslint-disable */
 const { resolve } = require('path');
-const { rm, readdir } = require("fs/promises");
-const { existsSync } = require("fs");
+const { readdir } = require("fs/promises");
+const { existsSync, rmSync } = require("fs");
 
 /**
  * For a detailed explanation regarding each configuration property, visit:
@@ -30,8 +30,8 @@ const config = {
         readme
       ];
 
-      files.forEach(async (f) => {
-        existsSync(f) && await rm(f, { recursive: true, force: true });
+      files.forEach((f) => {
+        existsSync(f) && rmSync(f, { recursive: true, force: true });
       });
     }
   },
