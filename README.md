@@ -30,7 +30,7 @@ Turn "to do" comments in your JavaScript code into a handy checklist in your pro
 ## Features
 
 - Extracts "to do" items into an easily accessible checklist.
-- Links each "to do" item to it's source file and line number.
+- Links each "to do" item to its source file and line number.
 - Marks "to do" items as completed directly in JS files.
 - Updates "to do" list when `@todo` or `@todolist` comments are added or removed.
 
@@ -69,7 +69,7 @@ npm install -D jsdoc-todo
    ```
 
 > [!NOTE]
-> `jsdoc-todo` writes the generated "to do" list to a project's README.md file by default. If you wish to have `jsdoc-todo` write the generated "to do" list to a different file, add an `todoPlugin.outFile` property to the project's JSDoc configuration file as shown below.
+> `jsdoc-todo` writes the generated "to do" list to a project's README.md file by default. If you wish to have `jsdoc-todo` write the generated "to do" list to a different file, add a `todoPlugin.outFile` property to the project's JSDoc configuration file as shown below.
 
 ```javascript
 const { todoPlugin } = require("jsdoc-todo");
@@ -93,15 +93,10 @@ OR
 }
 ```
 
-</td>
-</tr>
-</tbody>
-</table>
-
 <br>
 
 > [!TIP]
-> See [todoPlugin](#todoplugin-configuration) for all available `todoPlugin` properties.
+> See [todoPlugin](#todoplugin-configuration) for all `todoPlugin` configuration options.
 
 ## Example
 
@@ -202,7 +197,9 @@ PLEASE ADD THEM DIRECTLY BELOW THE "@endactualToDolist" HTML COMMENT BELOW. -->
 
 ## To Do
 
-- [ ] Generate "to do" list from TS files&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L95)
-- [ ] Delete todolist section from README.md if no "to do" comments are found in source code.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L96)
+- [ ] Generate "to do" list from TS files too.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L95)
+- [ ] Test against JSX and TSX files.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L96)
+- [ ] Delete todolist section from config.outFile if no "to do" comments are found in source code.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L97)
+- [ ] JSDoc has a built-in [@todo tag](https://jsdoc.app/tags-todo). Allow users to configure whether `@todo` doclets are omitted from the generated HTML docs instead of omitting it by default.&nbsp;-&nbsp;[review](tests/jsdoc-todo.test.js#L98)
 
 <!-- @endactualToDolist -->
