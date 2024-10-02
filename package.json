@@ -25,7 +25,7 @@
     "test": "cd tests && pnpm install --prefer-offline && pnpm run test",
     "lint": "eslint src",
     "build:emit": "tsc",
-    "build:todo": "jsdoc -c jsdoc.config.js .",
+    "build:todo": "jsdoc -c jsdoc.config.js tests",
     "build": "pnpm run build:emit && pnpm run test",
     "jest": "cd tests && pnpm run jest"
   },
@@ -48,7 +48,7 @@
     "to-do",
     "readme"
   ],
-  "author": "Arinze Chianumba <achianumba@protonmail.com>",
+  "author": "Arinze Chianumba <achianumba@protonmail.com> (https://github.com/achianumba)",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
